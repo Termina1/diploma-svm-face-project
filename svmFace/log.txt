@@ -1,0 +1,5 @@
+-----------------------
+Training: 19336,3059733333
+Training.Parameter-Choosing: 18472,36989
+Training.Training: 40,5289866666667
+Training.DB-Write: 289,436556

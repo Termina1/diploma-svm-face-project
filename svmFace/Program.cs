@@ -15,7 +15,6 @@ namespace svmFace
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Mongoid.getInstance();
             Application.Run(new Form1());
         }
     }

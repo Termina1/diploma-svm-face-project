@@ -6,7 +6,6 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using SVM;
-using MongoDB;
 
 namespace svmFace
 {
@@ -14,6 +13,7 @@ namespace svmFace
     {
         public static Trainer build(String path) {
             var tr = new Trainer();
+            Redis.getInstance().wipe();
             tr.walk(path);
             return tr;
         }
@@ -22,20 +22,20 @@ namespace svmFace
 
         protected void walk(String path) { 
             var directories = Directory.GetDirectories(path);
-            for (int num = 0; num < 2; num++)
-            {
+            int num = 0;
+            directories.AsParallel().ForAll((dir) => {
+                int lnum = num++;
                 var totalSpan = Overseer.observe("Training");
-                var problem = readProblem(num, directories);
-                var man = new Person
-                {
+                var problem = readProblem(dir, directories);
+                var man = new Person {
                     model = train(problem),
-                    name = "man " + num
+                    name = "man " + lnum
                 };
                 var span = Overseer.observe("Training.DB-Write");
-                Mongoid.getInstance().registerPerson(man);
+                Redis.getInstance().registerPerson(man);
                 span.die();
                 totalSpan.die();
-            }
+            });
             Overseer.log();
         }
 
@@ -57,10 +57,9 @@ namespace svmFace
 
         }
 
-        protected Problem readProblem(int num, String[] directories) {
+        protected Problem readProblem(String dir, String[] directories) {
             var friends = new List<Vector>();
             var foes = new List<Vector>();
-            var dir = directories[num];
             var files = Directory.GetFiles(dir);
             int iterations = files.Length - 4;
             for (int i = 0; i < iterations; i++)
@@ -109,9 +108,9 @@ namespace svmFace
                 Value = val
             }).ToArray();
             span.die();
-            var models = Mongoid.getInstance().planes();
+            var models = Redis.getInstance().planes();
             var dbspan = Overseer.observe("Prediction.DB_Select");
-            var results = models.FindAllAs<Person>().Select((model) =>
+            var results = models.Select((model) =>
             {
                 dbspan.die();
                 var pspan = Overseer.observe("Prediction.Predict");

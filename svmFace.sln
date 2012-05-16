@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svmFace", "svmFace\svmFace.csproj", "{658FEC04-2DCD-46D5-AA12-661867454767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVM", "..\SVM\SVM.csproj", "{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}"
@@ -10,31 +10,57 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		MonoTouch|Any CPU = MonoTouch|Any CPU
+		MonoTouch|Mixed Platforms = MonoTouch|Mixed Platforms
+		MonoTouch|x86 = MonoTouch|x86
 		Release|Any CPU = Release|Any CPU
 		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
+		STATIC_ONLY NO_EXPRESSIONS|Any CPU = STATIC_ONLY NO_EXPRESSIONS|Any CPU
+		STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms = STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms
+		STATIC_ONLY NO_EXPRESSIONS|x86 = STATIC_ONLY NO_EXPRESSIONS|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|x86.ActiveCfg = Debug|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|x86.Build.0 = Debug|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Any CPU.ActiveCfg = Release|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Mixed Platforms.Build.0 = Release|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|x86.ActiveCfg = Release|x86
-		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|x86.Build.0 = Release|x86
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.MonoTouch|Any CPU.ActiveCfg = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.MonoTouch|Any CPU.Build.0 = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.MonoTouch|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.MonoTouch|Mixed Platforms.Build.0 = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.MonoTouch|x86.ActiveCfg = Release|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.ActiveCfg = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.Build.0 = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = Release|Any CPU
+		{2A381CBB-8291-435C-A8E3-BBF3B590B2B6}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = Release|Any CPU
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|x86.ActiveCfg = Debug|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Debug|x86.Build.0 = Debug|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.MonoTouch|Any CPU.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.MonoTouch|Mixed Platforms.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.MonoTouch|Mixed Platforms.Build.0 = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.MonoTouch|x86.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.MonoTouch|x86.Build.0 = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Any CPU.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|Mixed Platforms.Build.0 = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|x86.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.Release|x86.Build.0 = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.STATIC_ONLY NO_EXPRESSIONS|Mixed Platforms.Build.0 = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.STATIC_ONLY NO_EXPRESSIONS|x86.ActiveCfg = Release|x86
+		{658FEC04-2DCD-46D5-AA12-661867454767}.STATIC_ONLY NO_EXPRESSIONS|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

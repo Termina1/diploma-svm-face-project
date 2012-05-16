@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Collections.Concurrent;
 
 namespace svmFace
 {
     public static class Overseer
     {
-        private static Dictionary<String, LittleWatcher> bank;
+        private static ConcurrentDictionary<String, LittleWatcher> bank;
 
         public static Imp observe(String subject)
         {
             if (bank == null) {
-                bank = new Dictionary<String, LittleWatcher>();
+                bank = new ConcurrentDictionary<String, LittleWatcher>();
             }
             LittleWatcher watcher;
             if (!bank.TryGetValue(subject, out watcher))
