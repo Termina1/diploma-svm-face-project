@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace svmFace
+namespace svmFace.Data
 {
     public class Vector : List<double>
     {

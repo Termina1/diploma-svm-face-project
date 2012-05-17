@@ -6,36 +6,42 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using SVM;
+using svmFace.Providers;
+using svmFace.Data;
+using svmFace.Statistics;
+using Send = System.Action<System.String>;
 
 namespace svmFace
 {
     public class Trainer
     {
-        public static Trainer build(String path) {
-            var tr = new Trainer();
-            Redis.getInstance().wipe();
-            tr.walk(path);
-            return tr;
+        public static void build(IImageProvider provider) {
+            provider.listen((data, command) => {
+                var tr = new Trainer(data);
+                Redis.getInstance().wipe();
+                TrainerCommand.create(command, tr).execute();
+            });
         }
 
+        protected TrainingData _data;
 
+        protected Trainer(TrainingData data) {
+            _data = data;
+        }
 
-        protected void walk(String path) { 
-            var directories = Directory.GetDirectories(path);
-            int num = 0;
-            directories.AsParallel().ForAll((dir) => {
-                int lnum = num++;
-                var totalSpan = Overseer.observe("Training");
-                var problem = readProblem(dir, directories);
-                var man = new Person {
-                    model = train(problem),
-                    name = "man " + lnum
-                };
-                var span = Overseer.observe("Training.DB-Write");
-                Redis.getInstance().registerPerson(man);
-                span.die();
-                totalSpan.die();
-            });
+        
+
+        public void walk() { 
+            var totalSpan = Overseer.observe("Training");
+            var problem = readProblem();
+            var man = new Person {
+                model = train(problem),
+                name = _data.name
+            };
+            var span = Overseer.observe("Training.DB-Write");
+            Redis.getInstance().registerPerson(man);
+            span.die();
+            totalSpan.die();
             Overseer.log();
         }
 
@@ -57,7 +63,7 @@ namespace svmFace
 
         }
 
-        protected Problem readProblem(String dir, String[] directories) {
+        protected Problem readProblem() {
             var friends = new List<Vector>();
             var foes = new List<Vector>();
             var files = Directory.GetFiles(dir);

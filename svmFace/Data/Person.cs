@@ -6,7 +6,7 @@ using System.Text;
 using System.Drawing;
 using SVM;
 
-namespace svmFace
+namespace svmFace.Data
 {
     [Serializable]
     public class Person

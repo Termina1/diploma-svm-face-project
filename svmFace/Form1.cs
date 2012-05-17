@@ -12,11 +12,9 @@ namespace svmFace
 {
     public partial class Form1 : Form
     {
-        protected BindingList<Person> store = new BindingList<Person>();
         public Form1()
         {
             InitializeComponent();
-            trainer = new Trainer();
 
         }
 
@@ -35,7 +33,7 @@ namespace svmFace
         {
             if (faceDir.Text != "")
             {
-                trainer = Trainer.build(faceDir.Text);
+                //trainer = Trainer.build(faceDir.Text);
             }
         }
 
@@ -43,7 +41,7 @@ namespace svmFace
         {
             pictureTransport.ShowDialog();
             if (File.Exists(pictureTransport.FileName)) {
-                MessageBox.Show(trainer.predict(pictureTransport.FileName));
+                //MessageBox.Show(trainer.predict(pictureTransport.FileName));
             }
         }
     }

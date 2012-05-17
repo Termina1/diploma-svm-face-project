@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SVM;
 using ServiceStack.Redis;
+using svmFace.Data;
 
 namespace svmFace
 {
