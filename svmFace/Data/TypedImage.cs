@@ -9,6 +9,6 @@ namespace svmFace.Data
     public class TypedImage
     {
         public int type;
-        public Image img;
+        public Bitmap img;
     }
 }

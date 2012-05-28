@@ -26,6 +26,9 @@ namespace svmFace.Providers
                 case "train":
                     _tr.walk();
                     break;
+                case "predict":
+                    _tr.predict();
+                    break;
             }
         }
     }

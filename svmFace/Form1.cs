@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using SVM;
+using svmFace.Providers;
 
 namespace svmFace
 {
@@ -33,7 +34,9 @@ namespace svmFace
         {
             if (faceDir.Text != "")
             {
-                //trainer = Trainer.build(faceDir.Text);
+                var provider = new ParallelLocalProvider(faceDir.Text, "train");
+                Redis.getInstance().wipe();
+                Trainer.build(provider);
             }
         }
 
@@ -41,7 +44,17 @@ namespace svmFace
         {
             pictureTransport.ShowDialog();
             if (File.Exists(pictureTransport.FileName)) {
-                //MessageBox.Show(trainer.predict(pictureTransport.FileName));
+                var provider = new LocalProvider(pictureTransport.FileName, "predict");
+                provider.GotName += (ob, name) => MessageBox.Show(name);
+                Trainer.build(provider);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            dirWithFaces.ShowDialog();
+            if (Directory.Exists(dirWithFaces.SelectedPath)) {
+                var prov = new LocalProvider(dirWithFaces.SelectedPath, "multipredict");
+                Trainer.build(prov);
             }
         }
     }

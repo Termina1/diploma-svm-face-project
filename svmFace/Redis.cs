@@ -15,7 +15,7 @@ namespace svmFace
 
         private RedisClient _client;
 
-        private static String listName = "people";
+        private static String listName = "people2";
 
 
 

@@ -34,6 +34,7 @@
             this.selectPath = new System.Windows.Forms.Button();
             this.dirWithFaces = new System.Windows.Forms.FolderBrowserDialog();
             this.start = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pictureTransport
@@ -79,11 +80,22 @@
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 85);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Test all";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(305, 120);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.start);
             this.Controls.Add(this.selectPath);
             this.Controls.Add(this.faceDir);
@@ -103,6 +115,7 @@
         private System.Windows.Forms.Button selectPath;
         private System.Windows.Forms.FolderBrowserDialog dirWithFaces;
         private System.Windows.Forms.Button start;
+        private System.Windows.Forms.Button button1;
     }
 }
 

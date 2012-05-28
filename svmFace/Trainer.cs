@@ -18,7 +18,6 @@ namespace svmFace
         public static void build(IImageProvider provider) {
             provider.listen((data, command) => {
                 var tr = new Trainer(data);
-                Redis.getInstance().wipe();
                 TrainerCommand.create(command, tr).execute();
             });
         }
@@ -31,7 +30,7 @@ namespace svmFace
 
         
 
-        public void walk() { 
+        public void walk() {
             var totalSpan = Overseer.observe("Training");
             var problem = readProblem();
             var man = new Person {
@@ -40,6 +39,7 @@ namespace svmFace
             };
             var span = Overseer.observe("Training.DB-Write");
             Redis.getInstance().registerPerson(man);
+            _data.senback(_data.name);
             span.die();
             totalSpan.die();
             Overseer.log();
@@ -64,33 +64,12 @@ namespace svmFace
         }
 
         protected Problem readProblem() {
-            var friends = new List<Vector>();
-            var foes = new List<Vector>();
-            var files = Directory.GetFiles(dir);
-            int iterations = files.Length - 4;
-            for (int i = 0; i < iterations; i++)
-            {
-                Bitmap map = Bitmap.FromFile(files[i]) as Bitmap;
-                friends.Add(map.resize(50, 50).toGrayScaleVector());
-            }
-
-            for (int i = 0; i < iterations * 2; i++)
-            {
-                var rand = new Random();
-                int randDir = rand.Next(directories.Length - 1);
-                if (directories[randDir] == dir)
-                {
-                    i--;
-                    continue;
-                }
-                var rfiles = Directory.GetFiles(directories[randDir]);
-                int randFile = rand.Next(rfiles.Length - 1);
-                Bitmap rmap = Bitmap.FromFile(rfiles[randFile]) as Bitmap;
-                var foeVector = rmap.resize(50, 50).toGrayScaleVector();
-                foeVector.type = 2;
-                foes.Add(foeVector);
-            }
-            return vectorListToProblem(friends.Concat(foes).ToList());
+            var resultVector = _data.images.Select<TypedImage, Vector>((el) => {
+                var vector = el.img.resize(50, 50).toGrayScaleVector();
+                vector.type = el.type;
+                return vector;
+            });
+            return vectorListToProblem(resultVector.ToList());
         }
 
         public Problem vectorListToProblem(List<Vector> vlist) {
@@ -104,37 +83,39 @@ namespace svmFace
             return new Problem(vlist.Count, vy.ToArray(), vx.ToArray(), maxCount);
         }
 
-        public String predict(String path) {
+        public void predict() {
             var totalSpan = Overseer.observe("Prediction");
             var span = Overseer.observe("Prediction.Common-ops");
-            Bitmap map = Bitmap.FromFile(path) as Bitmap;
-            var vc = map.resize(50, 50).toGrayScaleVector();
-            var test = vc.Select((val, index) => new Node {
-                Index = index,
-                Value = val
-            }).ToArray();
+            var test = new List<Node[]>(); 
+            _data.images.ToList().ForEach((map) => {
+                var vc = map.img.resize(50, 50).toGrayScaleVector();
+                test.Add(vc.Select((val, index) => new Node {
+                    Index = index,
+                    Value = val
+                }).ToArray());
+            });
             span.die();
             var models = Redis.getInstance().planes();
             var dbspan = Overseer.observe("Prediction.DB_Select");
-            var results = models.Select((model) =>
-            {
-                dbspan.die();
-                var pspan = Overseer.observe("Prediction.Predict");
-                var d = Prediction.PredictRaw(model.model, test);
-                pspan.die();
-                dbspan = Overseer.observe("Prediction.DB_Select");
-                return new { d = d, name = model.name };
+            test.ForEach((nodes) => {
+                var results = models.Select((model) => {
+                    dbspan.die();
+                    dbspan = Overseer.observe("Prediction.DB_Select");
+                    var pspan = Overseer.observe("Prediction.Predict");
+                    var d = Prediction.PredictRaw(model.model, nodes);
+                    pspan.die();
+                    dbspan = Overseer.observe("Prediction.DB_Select");
+                    return new { d = d, name = model.name };
+                });
+                var amax = results.OrderByDescending(el => el.d).FirstOrDefault();
+                if (amax != null && amax.d > 0) {
+                    _data.senback(amax.name);
+                } else {
+                    _data.senback("not found");
+                }
             });
-            var amax = results.OrderByDescending(el => el.d).FirstOrDefault();
             totalSpan.die();
             Overseer.log();
-            if (amax != null && amax.d > 0)
-            {
-                return amax.name;
-            }
-            else { 
-                return "not found";
-            }
         }
     }
 }
